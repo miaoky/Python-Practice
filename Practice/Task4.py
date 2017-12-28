@@ -34,7 +34,6 @@ def addphone(num, numlist):
 
 phones = []
 for call in calls:
-    if call[0][:3] == "140":
         addphone(call[0], phones)
 for call in calls:
     if call[1] in phones:
@@ -44,6 +43,7 @@ for text in texts:
         phones.remove(text[0])
     elif text[1] in phones:
         phones.remove(text[1])
+phones.sort()
 print("These numbers could be telemarketers:")
 for phone in phones:
     print(phone)
