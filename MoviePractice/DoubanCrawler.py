@@ -37,7 +37,7 @@ def getMovies(category, location):
     movies = []
     movie_url = getMovieUrl(category, location)
     html = MoviePractice.expanddouban.getHtml(movie_url, True)
-    soup = BeautifulSoup(html, "lxml")
+    soup = BeautifulSoup(html, "html.parser")
     all_list = soup.find_all("a", class_="item")
     for item in all_list:
         name = item.find("span", class_="title").get_text()
@@ -52,7 +52,7 @@ def getMovies(category, location):
 def get_req_location():
     locations = []
     html = MoviePractice.expanddouban.getHtml("https://movie.douban.com/tag/#/")
-    soup = BeautifulSoup(html, "lxml")
+    soup = BeautifulSoup(html, "html.parser")
     html = soup.find_all("ul", class_="category")
     li_html = html[2].find_all("span", class_="tag")
     for k in range(len(li_html)):
@@ -89,7 +89,7 @@ def get_lb_top_movie(temp_dflb_movie, temp_lb_top_movie):
         temp_lb_top_movie[lb] = sort_list[:end_index]
 
 
-req_locations = get_req_location();
+req_locations = get_req_location()
 req_categorys = ["悬疑", "犯罪", "情色"]
 with open("movies.csv", "w", encoding="utf-8", newline="") as csvfile:
     file_write = csv.writer(csvfile)
